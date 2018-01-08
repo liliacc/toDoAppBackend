@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-
 using toDoAppBackend.Entities;
 using toDoAppBackend.Services.ToDoService;
 

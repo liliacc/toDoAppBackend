@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace toDoAppBackend.Services.ToDoService
+﻿namespace toDoAppBackend.Services.ToDoService
 {
     public interface IToDoService
     {
