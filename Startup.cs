@@ -36,11 +36,7 @@ namespace toDoAppBackend
                 )
             );
 
-            Action<MvcOptions> mvcOptionAction = new Action<MvcOptions>(config => { });
-
-            var mvcCoreBuilder = services.AddMvcCore(mvcOptionAction)
-                .AddJsonOptions(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; })
-                .AddApiExplorer();
+            services.AddMvc();
 
             services.AddScoped<IToDoService, ToDoService>();
 
@@ -49,15 +45,9 @@ namespace toDoAppBackend
             services.AddOptions();
         }
 
-        public void Configure(IApplicationBuilder app,
-                              IHostingEnvironment env,
-                              ILoggerFactory loggerFactory,
-                              IApplicationLifetime appLifetime)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseDeveloperExceptionPage();
-
-            app.UseCors("AllowAll");
-
             app.UseMvc(); // Make Controllers work
         }
     }
