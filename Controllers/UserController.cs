@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using toDoAppBackend.ApiModels;
 using toDoAppBackend.Entities;
 using toDoAppBackend.Services.ToDoService;
 
@@ -15,17 +16,17 @@ namespace toDoAppBackend.Controllers
         {
             this.toDoService = toDoService;
         }
-        
-        [HttpGet]
-        public IEnumerable<User> Get()
-        {
-            return toDoService.getAllUsers();
-        }
 
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost("register")]
+        public RegisterResponse Register([FromBody]RegisterRequest loginRequest)
         {
-            return "value";
+            return toDoService.Register(loginRequest);
+        }
+        
+        [HttpPost("login")]
+        public LoginResponse Login([FromBody]LoginRequest loginRequest)
+        {
+            return toDoService.Login(loginRequest);
         }
 
         [HttpPost]
