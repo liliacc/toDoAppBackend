@@ -35,15 +35,15 @@ namespace toDoAppBackend.Services.ToDoService
             throw new System.NotImplementedException();
         }
 
-        public RegisterResponse Register(RegisterRequest loginRequest)
+        public RegisterResponse Register(RegisterRequest registerRequest)
         {
             RegisterResponse response = new RegisterResponse();
-            if (String.IsNullOrEmpty(loginRequest.Username))
+            if (String.IsNullOrEmpty(registerRequest.Username))
             {
                 response.Error = "Username is empty";
                 return response;
             }
-            if (String.IsNullOrEmpty(loginRequest.Password))
+            if (String.IsNullOrEmpty(registerRequest.Password))
             {
                 response.Error = "Password is empty";
                 return response;
@@ -51,18 +51,17 @@ namespace toDoAppBackend.Services.ToDoService
             User user;
             if (context.Users.Any())
             {
-                user = context.Users.FirstOrDefault(p => p.Name.ToLower() == loginRequest.Username.ToLower());
+                user = context.Users.FirstOrDefault(p => p.Name.ToLower() == registerRequest.Username.ToLower());
                 if (user != null)
                 {
                     response.Error = "User already exists";
                     return response;
                 }
-                
             }
 
             user = new User();
-            user.Name = loginRequest.Username;
-            user.Password = loginRequest.Password;
+            user.Name = registerRequest.Username;
+            user.Password = registerRequest.Password;
             user.Token = Guid.NewGuid().ToString();
             context.Entry(user).State = EntityState.Added;
             context.SaveChanges();
@@ -73,7 +72,44 @@ namespace toDoAppBackend.Services.ToDoService
 
         public LoginResponse Login(LoginRequest loginRequest)
         {
-            throw new System.NotImplementedException();
+            LoginResponse response = new LoginResponse();
+            if (String.IsNullOrEmpty(loginRequest.Username))
+            {
+                response.Error = "Username is empty";
+                return response;
+            }
+            if (String.IsNullOrEmpty(loginRequest.Password))
+            {
+                response.Error = "Password is empty";
+                return response;
+            }
+
+            if (!context.Users.Any())
+            {
+                response.Error = "Such user doesn't exist";
+                return response;
+            }
+            
+            User user = context.Users.FirstOrDefault(p => p.Name.ToLower() == loginRequest.Username.ToLower());
+            if (user == null)
+            {
+                response.Error = "Such user doesn't exist";
+                return response;
+            }
+
+            if (user.Password != loginRequest.Password)
+            {
+                response.Error = "Wrong password";
+                return response;
+            }
+            
+            user.Token = Guid.NewGuid().ToString();
+            
+            context.Entry(user).State = EntityState.Modified;
+            context.SaveChanges();
+
+            response.Token = user.Token;
+            return response;
         }
     }
 }
