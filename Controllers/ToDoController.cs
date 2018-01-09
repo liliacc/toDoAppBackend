@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using toDoAppBackend.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
+using toDoAppBackend.ApiModels;
 using toDoAppBackend.Services;
 
 namespace toDoAppBackend.Controllers
@@ -16,10 +15,10 @@ namespace toDoAppBackend.Controllers
             this.toDoService = toDoService;
         }
         
-        [HttpGet]
-        public IEnumerable<User> Get()
+        [HttpPost("get-all")]
+        public GetAllToDosResponse GetAll([FromBody]GetAllToDosRequest request)
         {
-            return null;
+            return toDoService.GetAllToDosByUser(request);
         }
 
         [HttpGet("{id}")]

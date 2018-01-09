@@ -1,12 +1,9 @@
-using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using toDoAppBackend.Entities;
 using toDoAppBackend.Services;
 
@@ -29,6 +26,16 @@ namespace toDoAppBackend
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", new CorsPolicyBuilder()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin()
+                    .AllowCredentials()
+                    .Build());
+            });
+            
             services.AddDbContextPool<ToDoDbContext>(
                 builder => builder.UseSqlServer(
                     Configuration.GetConnectionString("Default"),
@@ -44,10 +51,12 @@ namespace toDoAppBackend
             services.AddSingleton<IConfiguration>(Configuration);
 
             services.AddOptions();
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("AllowAll");
             app.UseDeveloperExceptionPage();
             app.UseMvc(); // Make Controllers work
         }

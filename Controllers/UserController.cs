@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using toDoAppBackend.ApiModels;
-using toDoAppBackend.Entities;
 using toDoAppBackend.Services;
 
 namespace toDoAppBackend.Controllers
@@ -27,21 +25,6 @@ namespace toDoAppBackend.Controllers
         public LoginResponse Login([FromBody]LoginRequest loginRequest)
         {
             return UserService.Login(loginRequest);
-        }
-
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

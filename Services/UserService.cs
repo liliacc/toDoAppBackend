@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using toDoAppBackend.ApiModels;
@@ -26,12 +25,12 @@ namespace toDoAppBackend.Services
         public RegisterResponse Register(RegisterRequest registerRequest)
         {
             RegisterResponse response = new RegisterResponse();
-            if (String.IsNullOrEmpty(registerRequest.Username))
+            if (string.IsNullOrWhiteSpace(registerRequest.Username))
             {
                 response.Error = "Username is empty";
                 return response;
             }
-            if (String.IsNullOrEmpty(registerRequest.Password))
+            if (string.IsNullOrWhiteSpace(registerRequest.Password))
             {
                 response.Error = "Password is empty";
                 return response;
@@ -61,12 +60,12 @@ namespace toDoAppBackend.Services
         public LoginResponse Login(LoginRequest loginRequest)
         {
             LoginResponse response = new LoginResponse();
-            if (String.IsNullOrEmpty(loginRequest.Username))
+            if (string.IsNullOrWhiteSpace(loginRequest.Username))
             {
                 response.Error = "Username is empty";
                 return response;
             }
-            if (String.IsNullOrEmpty(loginRequest.Password))
+            if (string.IsNullOrWhiteSpace(loginRequest.Password))
             {
                 response.Error = "Password is empty";
                 return response;

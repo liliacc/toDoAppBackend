@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using toDoAppBackend.ApiModels;
 using toDoAppBackend.Entities;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace toDoAppBackend.Services
 {
     public interface IToDoService
     {
-
+        GetAllToDosResponse GetAllToDosByUser(GetAllToDosRequest request);
     }
 
     class ToDoService : IToDoService
@@ -19,6 +16,18 @@ namespace toDoAppBackend.Services
         public ToDoService(ToDoDbContext context)
         {
             this.context = context;
+        }
+
+        public GetAllToDosResponse GetAllToDosByUser(GetAllToDosRequest request)
+        {
+            GetAllToDosResponse response = new GetAllToDosResponse();
+            if (request == null || string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Token))
+            {
+                response.Error = "Need to login";
+                return response;
+            }
+            
+            throw new NotImplementedException();
         }
     }
 }

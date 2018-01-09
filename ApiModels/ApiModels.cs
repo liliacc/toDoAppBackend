@@ -26,4 +26,18 @@
     {
         public string Token { get; set; }
     }
+    
+    public class AuthRequest
+    {
+        public string Token { get; set; }
+    }
+
+    public class GetAllToDosRequest : AuthRequest
+    {
+        public string Username { get; set; }
+    }
+    
+    public class GetAllToDosResponse : ValidationResponse
+    {
+    }
 }
