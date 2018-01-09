@@ -6,12 +6,12 @@ using toDoAppBackend.Services.ToDoService;
 namespace toDoAppBackend.Controllers
 {
     [Route("api/[controller]")]
-    public class ToDoController : Controller
+    public class UserController : Controller
     {
         private readonly IToDoService toDoService;
         
         
-        public ToDoController(IToDoService toDoService)
+        public UserController(IToDoService toDoService)
         {
             this.toDoService = toDoService;
         }

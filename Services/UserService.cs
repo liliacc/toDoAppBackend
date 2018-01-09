@@ -3,17 +3,17 @@ using toDoAppBackend.Entities;
 
 namespace toDoAppBackend.Services.ToDoService
 {
-    public interface IToDoService
+    public interface IUserService
     {
         IEnumerable<User> getAllUsers();
         User getUser(int dealId, string username);
     }
 
-    class ToDoService : IToDoService
+    class UserService : IUserService
     {
         private readonly ToDoDbContext context;
         
-        public ToDoService(ToDoDbContext context)
+        public UserService(ToDoDbContext context)
         {
             this.context = context;
         }
