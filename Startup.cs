@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using toDoAppBackend.Entities;
-using toDoAppBackend.Services.ToDoService;
+using toDoAppBackend.Services;
 
 namespace toDoAppBackend
 {
@@ -38,6 +38,7 @@ namespace toDoAppBackend
 
             services.AddMvc();
 
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IToDoService, ToDoService>();
 
             services.AddSingleton<IConfiguration>(Configuration);

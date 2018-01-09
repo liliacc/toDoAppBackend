@@ -2,31 +2,31 @@
 using Microsoft.AspNetCore.Mvc;
 using toDoAppBackend.ApiModels;
 using toDoAppBackend.Entities;
-using toDoAppBackend.Services.ToDoService;
+using toDoAppBackend.Services;
 
 namespace toDoAppBackend.Controllers
 {
     [Route("api/[controller]")]
     public class UserController : Controller
     {
-        private readonly IToDoService toDoService;
+        private readonly IUserService UserService;
         
         
-        public UserController(IToDoService toDoService)
+        public UserController(IUserService UserService)
         {
-            this.toDoService = toDoService;
+            this.UserService = UserService;
         }
 
         [HttpPost("register")]
         public RegisterResponse Register([FromBody]RegisterRequest loginRequest)
         {
-            return toDoService.Register(loginRequest);
+            return UserService.Register(loginRequest);
         }
         
         [HttpPost("login")]
         public LoginResponse Login([FromBody]LoginRequest loginRequest)
         {
-            return toDoService.Login(loginRequest);
+            return UserService.Login(loginRequest);
         }
 
         [HttpPost]

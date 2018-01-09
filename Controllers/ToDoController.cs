@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using toDoAppBackend.Entities;
-using toDoAppBackend.Services.ToDoService;
+using toDoAppBackend.Services;
 
 namespace toDoAppBackend.Controllers
 {
@@ -19,7 +19,7 @@ namespace toDoAppBackend.Controllers
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            return toDoService.getAllUsers();
+            return null;
         }
 
         [HttpGet("{id}")]
