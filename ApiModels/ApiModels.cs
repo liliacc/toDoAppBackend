@@ -1,4 +1,7 @@
-﻿namespace toDoAppBackend.ApiModels
+﻿using System.Collections.Generic;
+using toDoAppBackend.Entities;
+
+namespace toDoAppBackend.ApiModels
 {
     public class ValidationResponse
     {
@@ -39,5 +42,13 @@
     
     public class GetAllToDosResponse : ValidationResponse
     {
+        public List<string> Todos { get; set; }
     }
+    
+    public class CreateTodoRequest : AuthRequest
+    {
+        public string Username { get; set; }
+        public string TodoText { get; set; }
+    }
+    
 }

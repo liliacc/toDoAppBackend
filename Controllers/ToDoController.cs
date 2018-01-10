@@ -21,25 +21,10 @@ namespace toDoAppBackend.Controllers
             return toDoService.GetAllToDosByUser(request);
         }
 
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost("create")]
+        public ValidationResponse CreateTodo([FromBody]CreateTodoRequest request)
         {
-            return "value";
-        }
-
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return toDoService.CreateTodo(request);
         }
     }
 }
