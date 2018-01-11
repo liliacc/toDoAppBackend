@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using toDoAppBackend.ApiModels;
+using toDoAppBackend.Entities;
 using toDoAppBackend.Services;
 
 namespace toDoAppBackend.Controllers
@@ -25,6 +27,13 @@ namespace toDoAppBackend.Controllers
         public LoginResponse Login([FromBody]LoginRequest loginRequest)
         {
             return UserService.Login(loginRequest);
+        }
+        
+        // Only experimental
+        [HttpGet("all-users")]
+        public List<User> GetAllUsers()
+        {
+            return UserService.GetAllUsers();
         }
     }
 }

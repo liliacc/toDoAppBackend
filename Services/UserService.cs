@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using toDoAppBackend.ApiModels;
@@ -10,6 +11,7 @@ namespace toDoAppBackend.Services
     {
         RegisterResponse Register(RegisterRequest loginRequest);
         LoginResponse Login(LoginRequest loginRequest);
+        List<User> GetAllUsers();
     }
 
     class UserService : IUserService
@@ -97,6 +99,12 @@ namespace toDoAppBackend.Services
 
             response.Token = user.Token;
             return response;
+        }
+
+        // Only experimental
+        public List<User> GetAllUsers()
+        {
+            return context.Users.ToList();
         }
     }
 }
