@@ -36,12 +36,11 @@ namespace toDoAppBackend
                     .Build());
             });
             
-            services.AddDbContextPool<ToDoDbContext>(
-                builder => builder.UseMySQL(
-                    Configuration.GetConnectionString("Default"),
-                    dbContextOptions => dbContextOptions.MigrationsHistoryTable("__EFMigrationsHistory")
-                )
-            );
+
+            services.AddDbContext<ToDoDbContext>(options =>
+                options.UseMySQL(Configuration.GetConnectionString("Default")));
+            
+
 
             services.AddMvc();
 
