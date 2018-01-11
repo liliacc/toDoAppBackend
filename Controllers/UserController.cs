@@ -30,7 +30,7 @@ namespace toDoAppBackend.Controllers
         }
         
         // Only experimental
-        [HttpGet("all-users")]
+        [HttpGet("all")]
         public List<User> GetAllUsers()
         {
             return UserService.GetAllUsers();
