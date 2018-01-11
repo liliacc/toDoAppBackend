@@ -12,7 +12,7 @@ namespace toDoAppBackend.Services
     {
         GetAllToDosResponse GetAllToDosByUser(GetAllToDosRequest request);
         ValidationResponse CreateTodo(CreateTodoRequest request);
-        List<User> GetAllTodos();
+        List<ToDo> GetAllTodos();
     }
 
     class ToDoService : IToDoService
@@ -77,9 +77,9 @@ namespace toDoAppBackend.Services
         }
 
         // Only experimental
-        public List<User> GetAllTodos()
+        public List<ToDo> GetAllTodos()
         {
-            return context.Users.ToList();
+            return context.ToDos.ToList();
         }
     }
 }
