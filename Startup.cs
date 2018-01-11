@@ -37,7 +37,7 @@ namespace toDoAppBackend
             });
             
             services.AddDbContextPool<ToDoDbContext>(
-                builder => builder.UseSqlServer(
+                builder => builder.UseMySQL(
                     Configuration.GetConnectionString("Default"),
                     dbContextOptions => dbContextOptions.MigrationsHistoryTable("__EFMigrationsHistory")
                 )
