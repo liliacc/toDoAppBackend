@@ -36,6 +36,9 @@ namespace toDoAppBackend
                     .Build());
             });
             
+            services.AddDbContext<ToDoDbContext>(options =>
+                options.UseSqlite("Data Source=MvcMovie.db"));
+
             services.AddMvc();
 
             services.AddScoped<IUserService, UserService>();
