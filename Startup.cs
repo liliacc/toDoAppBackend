@@ -36,12 +36,6 @@ namespace toDoAppBackend
                     .Build());
             });
             
-
-            services.AddDbContext<ToDoDbContext>(options =>
-                options.UseMySQL(Configuration.GetConnectionString("Default")));
-            
-
-
             services.AddMvc();
 
             services.AddScoped<IUserService, UserService>();

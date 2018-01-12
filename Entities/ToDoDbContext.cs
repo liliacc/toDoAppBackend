@@ -8,5 +8,10 @@ namespace toDoAppBackend.Entities
         public DbSet<ToDo> ToDos { get; set; }
 
         public ToDoDbContext(DbContextOptions<ToDoDbContext> options) : base(options) { }
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=toDo.sqlite");
+        }
     }
 }
