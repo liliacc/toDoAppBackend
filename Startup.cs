@@ -36,8 +36,12 @@ namespace toDoAppBackend
                     .Build());
             });
             
-            services.AddDbContext<ToDoDbContext>(options =>
-                options.UseSqlite("Data Source=MvcMovie.db"));
+            services.AddDbContextPool<ToDoDbContext>(
+                builder => builder.UseSqlServer(
+                    Configuration.GetConnectionString("Default"),
+                    dbContextOptions => dbContextOptions.MigrationsHistoryTable("__EFMigrationsHistory")
+                )
+            );
 
             services.AddMvc();
 
