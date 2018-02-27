@@ -33,22 +33,31 @@ namespace toDoAppBackend.ApiModels
     public class AuthRequest
     {
         public string Token { get; set; }
+        public string Username { get; set; }
     }
 
     public class GetAllToDosRequest : AuthRequest
     {
-        public string Username { get; set; }
     }
     
     public class GetAllToDosResponse : ValidationResponse
     {
-        public List<string> Todos { get; set; }
+        public List<ToDo> Todos { get; set; }
     }
     
     public class CreateTodoRequest : AuthRequest
     {
-        public string Username { get; set; }
         public string TodoText { get; set; }
     }
-    
+
+    public class UpdateTodoRequest : AuthRequest
+    {
+        public int Id { get; set; }
+        public string TodoText { get; set; }
+    }
+
+    public class DeleteTodoRequest : AuthRequest
+    {
+        public int Id { get; set; }
+    }
 }

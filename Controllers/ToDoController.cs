@@ -29,11 +29,23 @@ namespace toDoAppBackend.Controllers
             return toDoService.CreateTodo(request);
         }
 
-        // Only experimental
-        [HttpGet("all")]
-        public List<ToDo> GetAllTodos()
+        [HttpPatch]
+        public ValidationResponse UpdateTodo([FromBody]UpdateTodoRequest request)
         {
-            return toDoService.GetAllTodos();
+            return toDoService.UpdateTodo(request);
         }
+
+        [HttpDelete]
+        public ValidationResponse DeleteTodo([FromBody]DeleteTodoRequest request)
+        {
+            return toDoService.DeleteTodo(request);
+        }
+
+        // Only experimental
+//        [HttpGet("all")]
+//        public List<ToDo> GetAllTodos()
+//        {
+//            return toDoService.GetAllTodos();
+//        }
     }
 }

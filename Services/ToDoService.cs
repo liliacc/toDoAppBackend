@@ -13,6 +13,8 @@ namespace toDoAppBackend.Services
         GetAllToDosResponse GetAllToDosByUser(GetAllToDosRequest request);
         ValidationResponse CreateTodo(CreateTodoRequest request);
         List<ToDo> GetAllTodos();
+        ValidationResponse UpdateTodo(UpdateTodoRequest request);
+        ValidationResponse DeleteTodo(DeleteTodoRequest request);
     }
 
     class ToDoService : IToDoService
@@ -45,8 +47,8 @@ namespace toDoAppBackend.Services
                 .Where(p => p.User == user)
                 .ToList();
 
-            response.Todos = new List<string>();
-            todos.ForEach(t => response.Todos.Add(t.Text));
+            response.Todos = new List<ToDo>();
+            todos.ForEach(t => response.Todos.Add(new ToDo {Id = t.Id, Text = t.Text}));
 
             return response;
         }
@@ -80,6 +82,63 @@ namespace toDoAppBackend.Services
         public List<ToDo> GetAllTodos()
         {
             return context.ToDos.ToList();
+        }
+
+        public ValidationResponse UpdateTodo(UpdateTodoRequest request) {
+            ValidationResponse response = new ValidationResponse();
+            if (request == null || string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Token))
+            {
+                response.Error = "Need to login";
+                return response;
+            }
+
+            User user = context.Users.FirstOrDefault(u => u.Name == request.Username && u.Token == request.Token);
+            if (user == null)
+            {
+                response.Error = "Need to login";
+                return response;
+            }
+
+            var todo = context.ToDos.Find(request.Id);
+
+            if (todo == null) {
+                response.Error = "No such todo";
+                return response;
+            }
+
+            todo.Text = request.TodoText;
+            context.Entry(todo).State = EntityState.Modified;
+            context.SaveChanges();
+
+            return response;
+        }
+
+        public ValidationResponse DeleteTodo(DeleteTodoRequest request) {
+            ValidationResponse response = new ValidationResponse();
+            if (request == null || string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Token))
+            {
+                response.Error = "Need to login";
+                return response;
+            }
+
+            User user = context.Users.FirstOrDefault(u => u.Name == request.Username && u.Token == request.Token);
+            if (user == null)
+            {
+                response.Error = "Need to login";
+                return response;
+            }
+
+            var todo = context.ToDos.Find(request.Id);
+
+            if (todo == null) {
+                response.Error = "No such todo";
+                return response;
+            }
+
+            context.Entry(todo).State = EntityState.Deleted;
+            context.SaveChanges();
+
+            return response;
         }
     }
 }
