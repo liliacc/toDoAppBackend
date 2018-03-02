@@ -106,6 +106,15 @@ namespace toDoAppBackend.Services
                 return response;
             }
 
+            context.Entry(todo)
+                .Reference(it => it.User)
+                .Load();
+
+            if (todo.User.Token != request.Token || todo.User.Name != request.Username) {
+                response.Error = "This todo belongs to another user";
+                return response;
+            }
+
             todo.Text = request.TodoText;
             context.Entry(todo).State = EntityState.Modified;
             context.SaveChanges();
@@ -132,6 +141,15 @@ namespace toDoAppBackend.Services
 
             if (todo == null) {
                 response.Error = "No such todo";
+                return response;
+            }
+
+            context.Entry(todo)
+                .Reference(it => it.User)
+                .Load();
+
+            if (todo.User.Token != request.Token || todo.User.Name != request.Username) {
+                response.Error = "This todo belongs to another user";
                 return response;
             }
 
